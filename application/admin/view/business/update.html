@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 是否冻结</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="update">
+
+            <div class="form-group">
+                <div class="label">
+                    <label for="sitename">公司名称：</label>
+                </div>
+                <div class="field">
+                    <div class="field">
+                        <input type="text" class="input w50" id="b_company" name="b_company" value="{$model.b_company}" size="50" placeholder="公司名称" data-validate="required:公司名称" disabled/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label for="sitename">公司地址：</label>
+                </div>
+                <div class="field">
+                    <div class="field">
+                        <input type="text" class="input w50" id="b_comadd" name="b_comadd" value="{$model.b_comadd}" size="50" placeholder="公司地址" data-validate="required:公司地址" disabled/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label for="sitename">法人：</label>
+                </div>
+                <div class="field">
+                    <div class="field">
+                        <input type="text" class="input w50" id="b_legal" name="b_legal" value="{$model.b_legal}" size="50" placeholder="法人" data-validate="required:法人" disabled/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label for="sitename">法人身份证号：</label>
+                </div>
+                <div class="field">
+                    <div class="field">
+                        <input type="text" class="input w50" id="b_legal_id" name="b_legal_id" value="{$model.b_legal_id}" disabled size="50" placeholder="法人身份证号" data-validate="required:法人身份证号" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label for="sitename">手机号：</label>
+                </div>
+                <div class="field">
+                    <div class="field">
+                        <input type="text" class="input w50" id="b_phone" name="b_phone" value="{$model.b_phone}" size="50" placeholder="手机号" data-validate="required:手机号" disabled/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label for="sitename">营业执照：</label>
+                </div>
+                <div class="field">
+                    <div class="field">
+                        <input type="text" class="input w50" id="b_license" name="b_license" value="{$model.b_license}" size="50" placeholder="营业执照" data-validate="required:营业执照" disabled/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <input type="hidden" value="{$model.b_id}" name="b_id" />
+                    <input value="正常" name="sub" type="submit" class="button bg-main icon-check-square-o">
+                    <input value="冻结" name="out" type="submit" class="button bg-main icon-check-square-o">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body></html>

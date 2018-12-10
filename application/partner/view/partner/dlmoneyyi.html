@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+  <link rel="stylesheet" href="__STATIC__/css/admin.css">
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 佣金</strong></div>
+    <div class="padding border-bottom">
+
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="50">ID</th>
+        <th width="200">线路</th>
+        <th>佣金</th>
+        <th>代理佣金</th>
+      </tr>
+      {volist name='rs' id="rs"}
+      <tr>
+        <td><input type="checkbox" name="id[]" value="{$rs.p_id}" />
+          {$key+1}</td>
+        <td>{$rs.p_title}</td>
+        <td>{$rs.p_commission}</td>
+        <td><input  type="number" min="0.01" id="{$rs.p_id}" step="0.01" name="dm_money" value="{$rs.dm_money}"></td>
+      </tr>
+      {/volist}
+      {literal}
+      <script>
+          $(function(){
+              $('input[type="number"]').blur(function () {
+                  var p_id=$(this).attr('id');
+                  $.ajax({
+                      type: "POST",
+                      url: "",
+                      data: "p_id="+p_id+"&dm_money="+$(this).val(),
+                      success: function(){
+                          alert("修改成功");
+                          window.location.reload();
+                      },
+                      error:function () {
+                          alert("修改失败");
+                      }
+                  });
+              })
+          });
+      </script>
+      {/literal}
+      <tr>
+        <td colspan="4"><div class="pagelist"></div></td>
+      </tr>
+    </table>
+  </div>
+</form>
+<script type="text/javascript">
+
+    function del(id){
+        if(confirm("您确定要删除吗?")){
+
+        }
+    }
+
+    $("#checkall").click(function(){
+        $("input[name='id[]']").each(function(){
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+
+    function DelSelect(){
+        var Checkbox=false;
+        $("input[name='id[]']").each(function(){
+            if (this.checked==true) {
+                Checkbox=true;
+            }
+        });
+        if (Checkbox){
+            var t=confirm("您确认要删除选中的内容吗？");
+            if (t==false) return false;
+        }
+        else{
+            alert("请选择您要删除的内容!");
+            return false;
+        }
+    }
+
+</script>
+</body></html>

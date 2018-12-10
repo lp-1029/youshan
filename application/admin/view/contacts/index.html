@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="index" id="listform">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="{:URL('user/add')}" style="float:right; display:none;">添加字段</a></div>
+        <div class="padding border-bottom">
+            <ul class="search" style="padding-left:10px;">
+               <li>搜索：</li>
+                <li>
+                    <input type="text" placeholder="请输入搜索客户关键字" name="sname" value="{$Think.Session.sname}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+                    <input type="submit" name="sub" class="button border-main icon-search" value="搜索">
+                    <a href="{:URL('user/diesession')}" class="button border-main icon-search">清空</a>
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th width="20%" style="text-align:left; padding-left:20px;">ID</th>
+                <th>客户</th>
+                <th>姓名</th>
+                <th>证件类型</th>
+                <th>证件号码</th>
+                <th>手机号码</th>
+            </tr>
+            {volist name='model' id='model'}
+            <tr>
+                <td><input type="checkbox" name="id[]" value="{$model.ad_id}" />
+                    {$key+1}</td>
+                <td>{$model.c_user}</td>
+                <td>{$model.con_name}</td>
+                <td>{$model.con_type}</td>
+                <td>{$model.con_card}</td>
+                <td>{$model.con_phone}</td>
+                </tr>
+            {/volist}
+            <tr>
+                <td colspan="5"><div class="pagelist">{$page}</div></td>
+            </tr>
+        </table>
+    </div>
+</form>
+</body>
+</html>

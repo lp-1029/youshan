@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>  
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 商品审核</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search">
+        <li>搜索：</li>
+        <li>添加时间
+          <input type="date" class="input" name="new_time" value="{$Think.Session.p_new}" style="width:150px; line-height:17px;display:inline-block">
+          ~~
+          <input type="date" class="input" name="die_time" value="{$Think.Session.p_die}"  style="width:150px; line-height:17px;display:inline-block">
+        </li>
+        <li>状态：</li>
+        <li>
+          <select name="state" class="input">
+            <option value="">请选择</option>
+            <option value="1" {if ($Think.Session.p_state==1)}selected{/if}>待审核</option>
+            <option value="2" {if ($Think.Session.p_state==2)}selected{/if}>审核通过</option>
+            <option value="3" {if ($Think.Session.p_state==3)}selected{/if}>未通过</option>
+          </select>
+        </li>
+        <li>
+          <input type="text" placeholder="请输入搜索商家关键字" name="sname" value="{$Think.Session.p_sname}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <input type="submit" name="sub" class="button border-main " value="搜索">
+          <a href="{:URL('product/diesession')}" class="button border-main ">清空</a>
+        </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="20">ID</th>
+        <th >标题</th>
+        <th width="20">商家</th>
+        <th>一级栏目</th>
+        <th>二级栏目</th>
+        <th>限制要求</th>
+        <th>线路特色</th>
+        <th>成人成本价</th>
+        <th>儿童成本价</th>
+        <th>发团时间</th>
+        <th>行程天数</th>
+        <th>佣金</th>
+        <th>添加时间</th>
+        <th>状态</th>
+        <th>添加市场价</th>
+      </tr>
+      {volist name='arr' id="rs"}
+        <tr>
+          <td>{$key+1}</td>
+          <td>{$rs.p_title}</td>
+          <td width="20">{$rs.b_company}</td>
+          <td>{$rs.t_name}</td>
+          <td>{$lm2[$i-1]['t_name']}</td>
+          <td>{$rs.p_rement}</td>
+          <td>{$rs.p_chstic}</td>
+          <td>{$rs.p_cost}</td>
+          <td>{$rs.p_cost_child}</td>
+          <td>{foreach name='time[$i-1]' id='a'}{$a['ha_time']}<br>{/foreach}</td>
+          <td>{$rs.p_date}天</td>
+          <td>{$rs.p_commission}</td>
+          <td>{$rs.p_addtime|date="Y-m-d",###}</td>
+          <td>{if ($rs.p_state==1)}待审核{/if}{if ($rs.p_state==2)}审核通过{/if}{if ($rs.p_state==3)}未通过{/if}</td>
+          <td><div class="button-group" >  <a class="button border-blue" style="height: 20px;line-height:22%;" href="{:url('product/index')}?p_id={$rs.p_id}">详情</a></div></td>
+        </tr>
+      {/volist}
+      <tr>
+        <td colspan="14"><div class="pagelist">{$arr->render()}</div></td>
+      </tr>
+    </table>
+  </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span></strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('Product/update')}">
+            <div class="form-group">
+                <div class="label">
+                    <label>用户名：</label>
+                </div>
+                <div>
+                    {$arr.pa_user}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>公司名称/真实姓名：</label>
+                </div>
+                <div class="field">
+                    {$arr.pa_name}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>手机号：</label>
+                </div>
+                <div class="field">
+                    {$arr.pa_phone}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>状态：</label>
+                </div>
+                <div class="field">
+                    {if condition="($arr.pa_state==1)"}正常
+                    {elseif condition="$arr.b_state==2"}冻结中
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>加入时间：</label>
+                </div>
+                <div class="field">
+                    {$arr.pa_addtime|date="Y-m-d H:i:s",###}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body></html>

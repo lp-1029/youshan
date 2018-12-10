@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+    <script>
+        i=1;
+    </script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>线路详情</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('Product/proinfo_add')}">
+            <div class="form-group">
+                <div class="field">
+                    {volist name='rs' id='rs'}
+                    <dl style="float: left; margin: 30px;">
+                        <dd><img src="__STATIC__/upload/{$rs.pr_url}" width="150"></dd>
+                        <dt>排序序号：<input type="number" id="{$rs.pr_id}" name="sort[]" min="0" value="{$rs.pr_sort}" style="width: 70px;"></dt>
+                    </dl>
+
+                    {/volist}
+                    {literal}
+                    <script>
+                        $(function(){
+                            $('input[type="number"]').blur(function () {
+                                var pr_id=$(this).attr('id');
+                                $.ajax({
+                                    type: "POST",
+                                    url: "",
+                                    data: "pr_id="+pr_id+"&pr_sort="+$(this).val(),
+                                    success: function(){
+                                        alert("修改成功");
+                                        window.location.reload();
+                                    },
+                                    error:function () {
+                                        alert("修改失败");
+                                    }
+                                });
+                            })
+                        });
+                    </script>
+                    {/literal}
+                </div>
+                <div class="field">
+                    <input type="file" name="file[]" class="input input-file" required>
+                    <input type="button" id="addd" value="加一个" class="button bg-main icon-check-square-o">
+                    {literal}
+                    <script>
+                        $(function(){
+                            $("#addd").click(function(){
+                                $(this).before('<input type="file" name="file[]"  class="input input-file" />')
+                            });
+                        });
+                    </script>
+                    {/literal}
+                    <input  type="hidden" name="pr_p_id"  value="{$p_id}">
+                    <input type="submit" name="sub" class="button bg-main icon-check-square-o" value="添加">
+                    <a href="{:url('product/index')}" class="button bg-main icon-check-square-o">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body></html>

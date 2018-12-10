@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('pbank/bank_add')}">
+            <div class="form-group">
+                <div class="label">
+                    <label>银行卡号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="pb_card" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>所属银行：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="pb_belong" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>所属省市：</label>
+                </div>
+                <div class="field">
+                    <select name="pb_sheng" id="pb_sheng" required>
+                        <option value="">请选择</option>
+                        {volist name="rs" id="rs"}
+                        <option value="{$rs.a_id}">{$rs.a_name}
+                        {/volist}
+                    </select>
+                    {literal}
+                    <script>
+                        $(function(){
+                            $("#pb_sheng").change(function(){
+                                xid=$(this).val();
+                                $.post('bld',{xid:xid},function(data){
+                                    $("#pb_shi").html(data);
+                                });
+                            });
+                        });
+                    </script>
+                    {/literal}
+                    <select name="pb_shi" id="pb_shi" required>
+                        <option value="">请选择 &nbsp;&nbsp;</option>
+                    </select>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>开户银行：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="pb_open" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>持卡人姓名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="pb_name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>银行预留手机号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="pb_reserve" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit" name="sub"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body></html>

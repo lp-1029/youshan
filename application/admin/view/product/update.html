@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 审核信息</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('product/update')}">
+            <div class="form-group">
+                <div class="label">
+                    <label>一级栏目：</label>
+                </div>
+                <div class="field">
+                    <input value="{$rs.t_name}" disabled class="input w50">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>二级栏目：</label>
+                </div>
+                <div class="field">
+                    <input value="{$lm2.t_name}" disabled class="input w50">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>标题：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_title" value="{$rs.p_title}" disabled class="input w50"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>原主图：</label>
+                </div>
+                <div class="field">
+                    <img src="__STATIC__/upload/{$rs.p_url}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>限制要求：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_rement" value="{$rs.p_rement}" disabled class="input w50">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>线路特点：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_chstic" value="{$rs.p_chstic}" disabled class="input w50">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>发团时间：</label>
+                </div>
+                <div class="field">
+                    {foreach name='time[$i-1]' id='a'}
+                        <input type="text" name="p_start" value="{$a['ha_time']}" disabled class="input" style="width: 100px;">
+                    {/foreach}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>行程天数：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_date" value="{$rs.p_date}" disabled class="input w50">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>成人成本价：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_cost" id="p_cost" value="{$rs.p_cost}" disabled class="input w50">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label style="color: #ee3333">添加成人市场价：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_market" id="p_market" value="{$rs.p_market}" class="input w50" placeholder="填写市场价" data-validate="required:请填写市场价">
+                    <span class="neirong"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>儿童成本价：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_cost_child" id="p_cost_child" value="{$rs.p_cost_child}" disabled class="input w50">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label style="color: #ee3333">添加儿童售价：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_market_child" id="p_market_child" value="{$rs.p_market_child}" class="input w50" placeholder="填写市场价" data-validate="required:请填写市场价">
+                    <span class="neirong"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <input  type="hidden" name="p_id" value="{$rs.p_id}">
+                    <button class="button bg-main icon-check-square-o" name="pass" id="pass" value="pass">审核通过</button>
+                    <input class="button bg-main icon-check-square-o" type="submit" name="out" value="审核失败">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+       $('#pass').click(function(){
+           if($('#p_cost').val()>=$('#p_market').val()||$('#p_cost_child').val()>=$('#p_market_child').val()){
+               $('.neirong').text('市场价大于成本价');
+               return false;
+           }else{
+               $(this).submit();
+           }
+
+       })
+</script>
+</body>
+</html>

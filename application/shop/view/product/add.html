@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('Product/add')}">
+            <div class="form-group">
+                <div class="label">
+                    <label>一级栏目：</label>
+                </div>
+                <div class="field">
+                    <select name="p_first" id="p_first" required>
+                        <option value="">请选择</option>
+                        {volist name="arr" id="rs"}
+                            <option value="{$rs.t_id}">{$rs.t_name}
+                        {/volist}
+                    </select>
+                    {literal}
+                    <script>
+                        $(function(){
+                            $("#p_first").change(function(){
+                                xid=$(this).val();
+                                $.post('ld',{xid:xid},function(data){
+                                    $("#p_second").html(data);
+                                });
+                            });
+                        });
+                    </script>
+                    {/literal}
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>二级栏目：</label>
+                </div>
+                <div>
+                    <select name="p_second" id="p_second" required>
+                        <option value="">请选择 &nbsp;&nbsp;</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>标题：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_title" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>主图：</label>
+                </div>
+                <div class="field">
+                    <input type="file" name="image" style=" width: 25%; float:left;"  value="" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>限制要求：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_rement" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>线路特色：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_chstic" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>线路详情：</label>
+                </div>
+                <div class="field" id="fu">
+                    <input type="file" name="file[]" class="input input-file" required><input type="button" id="addd" value="加一个">
+                    {literal}
+                    <script>
+                        $(function(){
+                            $("#addd").click(function(){
+                                $(this).before('<input type="file" name="file[]"  class="input input-file" />')
+                            });
+                        });
+                    </script>
+                    {/literal}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>发团时间：</label>
+                </div>
+                <div class="field">
+                    <input type="date" name="ha_time[]" required><input type="button" id="timeadd" value="添加">
+                    {literal}
+                    <script>
+                        $(function(){
+                            $("#timeadd").click(function(){
+                                $(this).before('<input type="date" name="ha_time[]"/>')
+                            });
+                        });
+                    </script>
+                    {/literal}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>行程天数：</label>
+                </div>
+                <div class="field">
+                    <input type="number" min="1" step="1" name="p_date" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>成本价：</label>
+                </div>
+                <div class="field">
+                    <input type="number" min="0.01" step="0.01" name="p_cost" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>儿童成本价：</label>
+                </div>
+                <div class="field">
+                    <input type="number" min="0.01" step="0.01" name="p_cost_child" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>佣金：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_commission" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit" name="sub"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body></html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>  
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"></strong></div>
+    <div class="padding border-bottom">
+      搜索： 线路<input  type="text" name="ss_p_title">&nbsp; &nbsp;&nbsp;
+            代理<select name="ss_d_id">
+                <option value="">请选择</option>
+                {volist name='rs_daili' id='rs'}
+                    <option value="{$rs.d_id}">{$rs.d_user}
+                {/volist}
+            </select>&nbsp; &nbsp;&nbsp;
+            订单编号<input  type="number" min="0" name="ss_o_num">&nbsp; &nbsp;&nbsp;
+            订单创建时间：起<input  type="date" name="ss_start">
+                        止<input type="date" name="ss_stop">&nbsp; &nbsp;&nbsp;
+            状态<select>
+                <option value="">请选择</option>
+                <option value="1">未使用</option>
+                <option value="2">已使用</option>
+            </select>
+            <input type="submit" name="ss" value="搜索" class="button border-blue">
+            <input type="submit" name="qingkong" value="清空" class="button border-blue">
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="50">ID</th>
+        <th width="200">线路</th>
+        <th>所属代理</th>
+        <th>客户</th>
+        <th>数量</th>
+        <th>订单编号</th>
+        <th>市场价</th>
+        <th>佣金</th>
+        <th>订单创建时间</th>
+        <th>状态</th>
+        <th>使用时间</th>
+      </tr>
+      {volist name='arr' id="rs"}
+        <tr>
+          <td><input type="checkbox" name="id[]" value="{$rs.o_id}" />
+            {$key+1}</td>
+          <td>{$rs.p_title}</td>
+          <td>{$rs.d_user}</td>
+          <td>{$rs.c_user}</td>
+          <td>{$rs.o_number}</td>
+          <td>{$rs.o_num}</td>
+          <td>{$rs.o_market}</td>
+          <td>{$rs.p_commission}</td>
+          <td>{$rs.o_essh|date="Y-m-d H:i:s",###}</td>
+          <td>
+            {if condition="($rs.o_state==1)"}未使用
+            {else /}已使用
+            {/if}
+          </td>
+          <td>{if condition="($rs.o_use==0)"}未使用
+            {else /}{$rs.use|date="Y-m-d H:i:s",###}
+            {/if}</td>
+        </tr>
+      {/volist}
+      <tr>
+        <td colspan="12"><div class="pagelist">{$arr->render()}</div></td>
+      </tr>
+    </table>
+    <div class="padding border-bottom">
+      <ul class="search">
+        <li>
+          <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+
+function del(id){
+	if(confirm("您确定要删除吗?")){
+		
+	}
+}
+
+$("#checkall").click(function(){ 
+  $("input[name='id[]']").each(function(){
+	  if (this.checked) {
+		  this.checked = false;
+	  }
+	  else {
+		  this.checked = true;
+	  }
+  });
+})
+
+function DelSelect(){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		var t=confirm("您确认要删除选中的内容吗？");
+		if (t==false) return false; 		
+	}
+	else{
+		alert("请选择您要删除的内容!");
+		return false;
+	}
+}
+
+</script>
+</body></html>

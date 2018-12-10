@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder"></strong></div>
+        <div class="padding border-bottom">
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th width="50">ID</th>
+                <th width="200">用户名</th>
+                <th>真实姓名</th>
+                <th>身份证</th>
+                <th>手机号</th>
+                <th>添加时间</th>
+            </tr>
+            {volist name='arr' id="rs"}
+            <tr>
+                <td><input type="checkbox" name="id[]" value="{$rs.d_id}" />
+                    {$key+1}</td>
+                <td>{$rs.d_user}</td>
+                <td>{$rs.d_name}</td>
+                <td>{$rs.d_card}</td>
+                <td>{$rs.d_phone}</td>
+                <td>{$rs.d_addtime|date="Y-m-d H:i:s",###}</td>
+            </tr>
+            {/volist}
+            <tr>
+                <td colspan="12"><div class="pagelist">{$arr->render()}</div></td>
+            </tr>
+        </table>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+
+    function del(id){
+        if(confirm("您确定要删除吗?")){
+
+        }
+    }
+
+    $("#checkall").click(function(){
+        $("input[name='id[]']").each(function(){
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+
+    function DelSelect(){
+        var Checkbox=false;
+        $("input[name='id[]']").each(function(){
+            if (this.checked==true) {
+                Checkbox=true;
+            }
+        });
+        if (Checkbox){
+            var t=confirm("您确认要删除选中的内容吗？");
+            if (t==false) return false;
+        }
+        else{
+            alert("请选择您要删除的内容!");
+            return false;
+        }
+    }
+
+</script>
+</body></html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>  
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"></strong></div>
+    <div class="padding border-bottom">
+      搜索：
+      一级栏目：<select name="ss_p_fist" id="ss_p_first" style="width:65px;">
+        <option value="">请选择</option>
+        {volist name='rs_first' id='rs'}
+          <option value="{$rs.t_id}">{$rs.t_name}
+        {/volist}
+      </select>
+      {literal}
+      <script>
+          $(function(){
+              $("#ss_p_first").change(function(){
+                  xid=$(this).val();
+                  $.post('ld',{xid:xid},function(data){
+                      $("#ss_p_second").html(data);
+                  });
+              });
+          });
+      </script>
+      {/literal}
+      二级栏目<select name="ss_p_second" id="ss_p_second" style="width:65px;">
+        <option value="">请选择</option>
+      </select>
+      标题：<input type="text" name="ss_p_title" style="width:80px;">
+      行程天数：<input type="number" min="0" name="ss_p_date" style="width:50px;">天&nbsp;
+      状态：<select name="ss_p_state" style="width:65px;">
+                <option value="">请选择</option>
+                <option value="1">待审核</option>
+                <option value="2">审核通过</option>
+                <option value="3">未通过</option>
+                <option value="4">已下架</option>
+            </select>
+      &nbsp;<input  type="submit" name="ss" value="搜索" class="button border-blue">
+      &nbsp;<input  type="submit" name="qingkong" value="清空" class="button border-blue">
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="50">ID</th>
+        <th width="80">一级栏目</th>
+        <th>二级栏目</th>
+        <th>标题</th>
+        <th>主图</th>
+        <th>限制要求</th>
+        <th style="width: 50px">线路特色</th>
+        <th>成本价</th>
+        <th style="width: 90px">儿童成本价</th>
+        <th width="80">行程天数</th>
+        <th>佣金</th>
+        <th>状态</th>
+        <th>添加时间</th>
+        <th>操作</th>       
+      </tr>
+      {volist name='arr' id="rs"}
+        <tr>
+          <td><input type="checkbox" name="id[]" value="{$rs.p_id}" />
+            {$key+1}</td>
+          <td>{$lm2[$i-1]['t_name']}</td>
+          <td>{$rs.t_name}</td>
+          <td>{$rs.p_title}</td>
+          <td><img src="__STATIC__/upload/{$rs.p_url}" height="50" width="50"></td>
+          <td>{$rs.p_rement}</td>
+          <td>{$rs.p_chstic}</td>
+          <td>{$rs.p_cost}</td>
+          <td>{$rs.p_cost_child}</td>
+          <td>{$rs.p_date}天</td>
+          <td>{$rs.p_commission}</td>
+          <td>
+            {if condition="($rs.p_state==1)"}待审核
+            {elseif condition="($rs.p_state==2)"}审核通过
+            {elseif condition="($rs.p_state==3)"}未通过
+            {else /}已下架
+            {/if}
+          </td>
+          <td>{$rs.p_addtime|date="Y-m-d H:i:s",###}</td>
+          <td><div class="button-group"><a class="button border-blue" href="{:url('Product/sel','p_id='.rand(0,9).rand(0,9).$rs.p_id.(rand(0,9)).rand(0,9).rand(0,9))}">查看</a><a class="button border-blue" href="{:url('Product/proinfo','p_id='.rand(0,9).rand(0,9).$rs.p_id.(rand(0,9)).rand(0,9).rand(0,9))}">相册</a>  <a class="button border-blue" href="{:url('Product/update')}?p_id={$rs.p_id}">修改</a></div></td>
+        </tr>
+      {/volist}
+      <tr>
+        <td colspan="15"><div class="pagelist">{$arr->render()}</div></td>
+      </tr>
+    </table>
+    <div class="padding border-bottom">
+      <ul class="search">
+        <li>
+          <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+
+function del(id){
+	if(confirm("您确定要删除吗?")){
+		
+	}
+}
+
+$("#checkall").click(function(){ 
+  $("input[name='id[]']").each(function(){
+	  if (this.checked) {
+		  this.checked = false;
+	  }
+	  else {
+		  this.checked = true;
+	  }
+  });
+})
+
+function DelSelect(){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		var t=confirm("您确认要删除选中的内容吗？");
+		if (t==false) return false; 		
+	}
+	else{
+		alert("请选择您要删除的内容!");
+		return false;
+	}
+}
+
+</script>
+</body></html>

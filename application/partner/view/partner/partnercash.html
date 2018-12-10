@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>提现</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('partner/partnercash')}">
+            <div class="form-group">
+                <div class="label">
+                    <label>余额：</label>
+                </div>
+                <div class="field">
+                    <span id="yue">{$rs_partner.pa_wallet}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>提现至银行卡：</label>
+                </div>
+                <div class="field">
+                    <select name="pb_card" id="pb_card" required>
+                        <option value="">请选择</option>
+                        {volist name="rs_bank" id="rs"}
+                        <option value="{$rs.pb_id}">{$rs.pb_belong}-{$rs.pb_card}
+                            {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>提现金额：</label>
+                </div>
+                <div class="field">
+                    <input  type="number" id="par_money" name="par_money" min="0.01" step="0.01" max="{$rs_partner.pa_wallet}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o"  type="submit" name="sub"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body></html>

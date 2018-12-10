@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+
+<div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+    <div class="padding border-bottom">
+        <form method="post" action="index" id="">
+            <ul class="search">
+                <li>搜索：</li>
+                <li>添加时间:
+                    <input type="date" class="input" name="new_time" value="{$Think.Session.bus_new}" style="width:150px; line-height:17px;display:inline-block">
+                    ~~
+                    <input type="date" class="input" name="die_time" value="{$Think.Session.bus_die}"  style="width:150px; line-height:17px;display:inline-block">
+                </li>
+                <li>状态：</li>
+                <li>
+                    <select name="state" class="input">
+                        <option value="">请选择</option>
+                        <option value="1" {if ($Think.Session.bus_state==1)}selected{/if}>转账成功</option>
+                        <option value="2" {if ($Think.Session.busta_state==2)}selected{/if}>审核中</option>
+                        <option value="3" {if ($Think.Session.busta_state==3)}selected{/if}>转账失败</option>
+                    </select>
+                </li>
+                <li>
+                    <input type="text" placeholder="请输入搜索账户关键字" name="sname" value="{$Think.Session.bus_sname}" class="input" style="width:250px; line-height:17px;display:inline-block" />
+                    <input type="submit" name="sub" class="button border-main icon-search" value="搜索">
+                    <a href="{:URL('busicash/diesession')}" class="button border-main icon-search">清空</a>
+            </ul>
+        </form>
+    </div>
+    <form method="post" action="update" id="listform">
+        <table class="table table-hover text-center">
+            <tr>
+                <th width="120">ID</th>
+                <th>商户</th>
+                <th>银行卡号</th>
+                <th>交易编码</th>
+                <th>状态</th>
+                <th>添加时间</th>
+                <th>转账时间</th>
+                <th>操作</th>
+            </tr>
+            {volist name='model' id="rs"}
+            <tr>
+                <td><input type="checkbox" name="id[]" value="{$rs.bus_id}" />
+                    {$key+1}</td>
+                <td>{$rs.b_user}</td>
+                <td>{$rs.bu_card}</td>
+                <td>{$rs.bus_num}</td>
+                <td>{if($rs.bus_state==1)}审核中{/if}{if($rs.bus_state==2)}提现成功{/if}{if ($rs.bus_state==3)}提现失败{/if}</td>
+                <td>{$rs.bus_addtime|date="Y-m-d H:i:s",###}</td>
+                <td>{$rs.bus_turntime|date="Y-m-d H:i:s",###}</td>
+                <td><a href="{:URL('busicash/update')}?id={$rs.bus_id}" style="height: 20px;line-height:22%;" class="button border-main">提现成功</a> </td>
+            </tr>
+            {/volist}
+            <tr>
+                <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
+                    全选 </td>
+                <td colspan="7" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red " style="padding:5px 15px;" onclick="DelSelect()"> 提现成功</a>
+            </tr>
+            <tr>
+                <td colspan="8"><div class="pagelist">{$page}</div></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript">
+
+    //全选
+    $("#checkall").click(function(){
+        $("input[name='id[]']").each(function(){
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+
+    //批量提现
+    function DelSelect(){
+        var Checkbox=false;
+        $("input[name='id[]']").each(function(){
+            if (this.checked==true) {
+                Checkbox=true;
+            }
+        });
+        if (Checkbox){
+            var t=confirm("您确认要提现吗？");
+            if (t==false){return false;}
+            $("#listform").submit();
+        }
+        else{
+            alert("请选择您要提现的数据!");
+            return false;
+        }
+    }
+
+
+</script>
+</body>
+</html>

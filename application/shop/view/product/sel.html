@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>详细信息查看</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('Product/update')}">
+            <div class="form-group">
+                <div class="label">
+                    <label>一级栏目：</label>
+                </div>
+                <div class="field">
+                    {$lm2.t_name}
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>二级栏目：</label>
+                </div>
+                <div>
+                    {$arr.t_name}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>标题：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_title" value="{$arr.p_title}" readonly="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>主图：</label>
+                </div>
+                <div class="field">
+                    <img src="__STATIC__/upload/{$arr.p_url}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>限制要求：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_rement" value="{$arr.p_rement}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>线路特点：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_chstic" value="{$arr.p_chstic}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>发团时间：</label>
+                </div>
+                <div class="field">
+                    {volist name='start' id='rs_start'}
+                    <input type="date" name="ha_time[]" value="{$rs_start.ha_time}" required readonly>
+                    {/volist}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>行程天数：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_date" value="{$arr.p_date}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>成本价：</label>
+                </div>
+                <div class="field">
+                    <input type="number" min="0.01" step="0.01" name="p_cost" value="{$arr.p_cost}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>儿童成本价：</label>
+                </div>
+                <div class="field">
+                    <input type="number" min="0.01" step="0.01" name="p_cost_child" value="{$arr.p_cost_child}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>佣金：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="p_commission" value="{$arr.p_commission}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <a href="{:url('product/index')}" class="button bg-main icon-check-square-o">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span></strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('Business/update')}">
+            <div class="form-group">
+                <div class="label">
+                    <label>账户余额：</label>
+                </div>
+                <div class="label">
+                    <label>{$rs.pa_wallet}</label>
+                </div>
+                <div class="label">
+                    <a href="{:url('partner/partnercash')}" class="button button-little bg-yellow"> 提现</a>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 提现信息</strong></div>
+    <div class="padding border-bottom">
+        <ul class="search">
+            <li>
+            </li>
+        </ul>
+    </div>
+    <table class="table table-hover text-center">
+        <tr>
+            <th width="">ID</th>
+            <th width="">提现至银行卡</th>
+            <th>提现金额</th>
+            <th>交易编号</th>
+            <th>提现提交时间</th>
+            <th>提现状态</th>
+        </tr>
+        {volist name='arr' id="rs"}
+        <tr>
+            <td><input type="checkbox" name="id[]" value="{$rs.par_id}" />
+                {$key+1}</td>
+            <td>{$rs.pb_belong}-{$rs.pb_card}</td>
+            <td>{$rs.par_money}</td>
+            <td>{$rs.par_num}</td>
+            <td>{$rs.par_addtime|date="Y-m-d H:i:s",###}</td>
+            <td>
+                {if condition="($rs.par_state==1)"}提现中
+                {elseif condition="($rs.par_state==2)"}提现成功
+                {else /}提现失败
+                {/if}
+            </td>
+        </tr>
+        {/volist}
+        <tr>
+        </tr>
+    </table>
+</div>
+</body></html>
